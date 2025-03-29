@@ -8,7 +8,7 @@ static var ref : Clock
 ## Constructor
 func _init() -> void:
 	if not ref:ref = self
-	else:queue_free()
+	else:queue_free() 
 	
 ## Emitted when the clock just ticked
 signal ticked
