@@ -1,0 +1,82 @@
+[gd_scene load_steps=3 format=3 uid="uid://j4k4ltp7nca1"]
+
+[ext_resource type="Script" path="res://scenes/second_scene/second_scene.gd" id="1_acxxf"]
+[ext_resource type="StyleBox" uid="uid://dt7dod7egxof5" path="res://assets/themes/style_box_flat/transparent.tres" id="2_662lg"]
+
+[node name="SecondScene" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_acxxf")
+
+[node name="TabContainer" type="TabContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = ExtResource("2_662lg")
+current_tab = 0
+tabs_visible = false
+tab_focus_mode = 0
+
+[node name="Locked" type="Control" parent="TabContainer"]
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="UnlockButton" type="Button" parent="TabContainer/Locked"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(320, 160)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -4.0
+offset_top = -4.0
+offset_right = 4.0
+offset_bottom = 4.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Unlock
+(25 Idleons)"
+
+[node name="Label" type="Label" parent="TabContainer/Locked"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 23.0
+grow_horizontal = 2
+theme_type_variation = &"HeaderLarge"
+text = "2nd Feature
+-locked-"
+horizontal_alignment = 1
+
+[node name="Unlocked" type="Control" parent="TabContainer"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 1
+
+[node name="Label" type="Label" parent="TabContainer/Unlocked"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -36.5
+offset_top = -11.5
+offset_right = 36.5
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_type_variation = &"HeaderLarge"
+text = "Unlocked"

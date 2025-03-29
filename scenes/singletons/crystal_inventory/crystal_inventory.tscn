@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dtf2dpashb4q7"]
+
+[ext_resource type="Script" path="res://scenes/singletons/crystal_inventory/crystal_inventory.gd" id="1_vode8"]
+
+[node name="CrystalInventory" type="Node"]
+script = ExtResource("1_vode8")

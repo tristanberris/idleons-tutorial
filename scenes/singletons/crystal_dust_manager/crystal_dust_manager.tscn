@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://duvtr6yhi2722"]
+
+[ext_resource type="Script" path="res://scenes/singletons/crystal_dust_manager/crystal_dust_manager.gd" id="1_weue3"]
+
+[node name="CrystalDustManager" type="Node"]
+script = ExtResource("1_weue3")

@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://co11w3ia38wpv"]
+
+[ext_resource type="Script" path="res://scenes/singletons/excavator/excavator.gd" id="1_nde6m"]
+
+[node name="Excavator" type="Node"]
+script = ExtResource("1_nde6m")

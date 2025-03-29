@@ -1,0 +1,86 @@
+[gd_scene load_steps=4 format=3 uid="uid://cqei8xr13emvo"]
+
+[ext_resource type="Script" path="res://scenes/third_scene/third_scene.gd" id="1_wr6gc"]
+
+[sub_resource type="GDScript" id="GDScript_o1y6u"]
+script/source = "extends Button
+## Debug button to test excavation
+
+func _ready()->void:
+	pressed.connect(_on_pressed)
+
+func _on_pressed()->void:
+	Excavator.ref.excavate()
+"
+
+[sub_resource type="GDScript" id="GDScript_886ad"]
+script/source = "extends Label
+
+func _ready()->void:
+	IdleonsManager.ref.idleons_updated.connect(_on_idleons_updated)
+
+func _on_idleons_updated()->void:
+	text=\"Idleons: %s\"%IdleonsManager.ref.get_idleons()
+"
+
+[node name="ThirdScene" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_wr6gc")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+
+[node name="ExcavateButton" type="Button" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(320, 80)
+layout_mode = 2
+text = "Excavate"
+script = SubResource("GDScript_o1y6u")
+
+[node name="Button" type="Button" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(320, 90)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+focus_mode = 0
+text = "Create Crystal"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer"]
+custom_minimum_size = Vector2(480, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="InventoryContainer" type="VBoxContainer" parent="MarginContainer/ScrollContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(480, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+
+[node name="Label" type="Label" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_type_variation = &"HeaderLarge"
+text = "Idleons: 0"
+script = SubResource("GDScript_886ad")

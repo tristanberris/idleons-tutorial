@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://b3ivif45jpl4y"]
+
+[ext_resource type="Script" path="res://scenes/singletons/idleons_manager/idleons_manager.gd" id="1_3eb2p"]
+
+[node name="IdleonsManager" type="Node"]
+script = ExtResource("1_3eb2p")

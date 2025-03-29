@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://ckl2yivtudf2a"]
+
+[ext_resource type="Script" path="res://scenes/singletons/clock/clock.gd" id="1_b15oa"]
+
+[node name="Clock" type="Node"]
+script = ExtResource("1_b15oa")
