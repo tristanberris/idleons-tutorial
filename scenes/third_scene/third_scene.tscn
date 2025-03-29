@@ -1,17 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://cqei8xr13emvo"]
+[gd_scene load_steps=5 format=3 uid="uid://cqei8xr13emvo"]
 
 [ext_resource type="Script" path="res://scenes/third_scene/third_scene.gd" id="1_wr6gc"]
-
-[sub_resource type="GDScript" id="GDScript_o1y6u"]
-script/source = "extends Button
-## Debug button to test excavation
-
-func _ready()->void:
-	pressed.connect(_on_pressed)
-
-func _on_pressed()->void:
-	Excavator.ref.excavate()
-"
 
 [sub_resource type="GDScript" id="GDScript_886ad"]
 script/source = "extends Label
@@ -21,6 +10,45 @@ func _ready()->void:
 
 func _on_idleons_updated()->void:
 	text=\"Idleons: %s\"%IdleonsManager.ref.get_idleons()
+"
+
+[sub_resource type="GDScript" id="GDScript_lw4kv"]
+script/source = "extends Label
+
+
+func _ready() -> void:
+	CrystalDustManager.ref.updated.connect(_on_crystal_dust_updated) 
+	text=\"Crystal Dust: %s\" %CrystalDustManager.ref.value()
+
+
+func _on_crystal_dust_updated()->void:
+	text=\"Crystal Dust: %s\" %CrystalDustManager.ref.value()
+"
+
+[sub_resource type="GDScript" id="GDScript_o1y6u"]
+script/source = "extends Button
+## Debug button to test excavation
+
+func _ready()->void:
+	pressed.connect(_on_pressed)
+
+func debug_test_excavate()->void:
+	for index:int in range(0,999):
+		Excavator.ref.excavate()
+		
+	var rare_crystal_count:int = 0
+	
+	for crystal:CrystalResource in CrystalInventory.ref.get_crystals():
+		if crystal._value > 50:
+			rare_crystal_count += 1
+	
+	print(\"Crystals Generated: %s\"%CrystalInventory.ref.get_crystals().size())
+	print(\"Rare Crystals: %s\"%rare_crystal_count)
+	
+	
+func _on_pressed()->void:
+	#debug_test_excavate()
+	Excavator.ref.excavate()
 "
 
 [node name="ThirdScene" type="Control"]
@@ -43,6 +71,25 @@ theme_override_constants/margin_left = 16
 theme_override_constants/margin_top = 16
 theme_override_constants/margin_right = 16
 theme_override_constants/margin_bottom = 16
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_type_variation = &"HeaderLarge"
+text = "Idleons: 0"
+script = SubResource("GDScript_886ad")
+
+[node name="CrystalDustLabel" type="Label" parent="MarginContainer/VBoxContainer2"]
+layout_mode = 2
+theme_type_variation = &"HeaderLarge"
+text = "Crystal Dust: <value>"
+horizontal_alignment = 1
+script = SubResource("GDScript_lw4kv")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
@@ -76,11 +123,3 @@ custom_minimum_size = Vector2(480, 0)
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 4
-
-[node name="Label" type="Label" parent="MarginContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 0
-theme_type_variation = &"HeaderLarge"
-text = "Idleons: 0"
-script = SubResource("GDScript_886ad")
