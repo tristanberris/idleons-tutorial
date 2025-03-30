@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://dlavhneqf3y7v"]
+[gd_scene load_steps=15 format=3 uid="uid://dlavhneqf3y7v"]
 
 [ext_resource type="Script" path="res://scenes/singletons/game/game.gd" id="1_ge8ti"]
 [ext_resource type="PackedScene" uid="uid://db404cimuea4c" path="res://scenes/first_scene/first_scene.tscn" id="2_3sooq"]
@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://cork721okqyxr" path="res://scenes/singletons/bugs_manager/bugs_manager.tscn" id="5_akiit"]
 [ext_resource type="PackedScene" uid="uid://co11w3ia38wpv" path="res://scenes/singletons/excavator/excavator.tscn" id="6_327kf"]
 [ext_resource type="PackedScene" uid="uid://cqei8xr13emvo" path="res://scenes/third_scene/third_scene.tscn" id="7_oovdm"]
+[ext_resource type="PackedScene" uid="uid://ukd175wdipaa" path="res://scenes/singletons/bugs_eaten_generator/bugs_eaten_generator.tscn" id="10_jj8x1"]
 [ext_resource type="PackedScene" uid="uid://b83ss7rsln8uk" path="res://scenes/fourth_scene/fourth_scene.tscn" id="11_q2kke"]
 
 [node name="Game" type="Node"]
@@ -34,6 +35,8 @@ script = ExtResource("2_erteh")
 [node name="Excavator" parent="." instance=ExtResource("6_327kf")]
 
 [node name="IdleonGenerator" parent="." instance=ExtResource("3_w737i")]
+
+[node name="BugsEatenGenerator" parent="." instance=ExtResource("10_jj8x1")]
 
 [node name="TabContainer" type="TabContainer" parent="."]
 anchors_preset = 15

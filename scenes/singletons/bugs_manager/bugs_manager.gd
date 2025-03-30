@@ -37,3 +37,13 @@ func consume_bugs(quantity:int)-> Error:
 	bugs_updated.emit()
 
 	return OK
+	
+func spend_eaten_bugs(quantity:int)->Error:
+	if quantity < 0:return FAILED
+
+	if quantity > data.resources.bugs_eaten:return FAILED ##not enough bugs, too expensive
+	
+	data.resources.bugs_eaten -= quantity
+	bugs_updated.emit()
+
+	return OK

@@ -93,3 +93,21 @@ layout_mode = 2
 theme_type_variation = &"HeaderLarge"
 text = "Unlockables"
 horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer/RightPanel/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="BugCollectorUnlockButton" type="Button" parent="MarginContainer/HBoxContainer/RightPanel/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(150, 100)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Unlock 
+Bug Collecter"
+
+[node name="Button2" type="Button" parent="MarginContainer/HBoxContainer/RightPanel/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(150, 100)
+layout_mode = 2
+text = "Unlock #2
+"

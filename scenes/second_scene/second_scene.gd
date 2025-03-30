@@ -21,15 +21,10 @@ func _display_view(unlocked:bool = false) -> void:
 ## Try to unlock feature
 func _try_to_unlock() -> void:
 	if Game.ref.data.progression.second_scene_unlocked:return		
-
 	var error:Error = IdleonsManager.ref.consume_idleons(COST)
-	
 	if error:return
-	
 	Game.ref.data.progression.second_scene_unlocked = true
-	
 	IdleonGenerator.ref.start_generator()
-	
 	_display_view(true) ##connects to above function
 	
 	
