@@ -17,7 +17,6 @@ var _cycle_duration:float = 0.5
 var _cycle_progression:float = 0.0
 ## Amount of resources produced each cycle
 var _production:int=1
-
 var _paused:bool=true
 
 func _ready() ->void:
