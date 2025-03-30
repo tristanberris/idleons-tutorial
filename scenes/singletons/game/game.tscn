@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://dlavhneqf3y7v"]
+[gd_scene load_steps=17 format=3 uid="uid://dlavhneqf3y7v"]
 
 [ext_resource type="Script" path="res://scenes/singletons/game/game.gd" id="1_ge8ti"]
 [ext_resource type="PackedScene" uid="uid://db404cimuea4c" path="res://scenes/first_scene/first_scene.tscn" id="2_3sooq"]
@@ -11,6 +11,8 @@
 [ext_resource type="PackedScene" uid="uid://dtf2dpashb4q7" path="res://scenes/singletons/crystal_inventory/crystal_inventory.tscn" id="5_a4quk"]
 [ext_resource type="PackedScene" uid="uid://cork721okqyxr" path="res://scenes/singletons/bugs_manager/bugs_manager.tscn" id="5_akiit"]
 [ext_resource type="PackedScene" uid="uid://co11w3ia38wpv" path="res://scenes/singletons/excavator/excavator.tscn" id="6_327kf"]
+[ext_resource type="PackedScene" uid="uid://bpyisi62gltaw" path="res://scenes/singletons/upgrade_manager/upgrade_manager.tscn" id="6_k3pqb"]
+[ext_resource type="Script" path="res://scenes/singletons/upgrade_manager/upgrade_manager.gd" id="7_c5ono"]
 [ext_resource type="PackedScene" uid="uid://cqei8xr13emvo" path="res://scenes/third_scene/third_scene.tscn" id="7_oovdm"]
 [ext_resource type="PackedScene" uid="uid://ukd175wdipaa" path="res://scenes/singletons/bugs_eaten_generator/bugs_eaten_generator.tscn" id="10_jj8x1"]
 [ext_resource type="PackedScene" uid="uid://b83ss7rsln8uk" path="res://scenes/fourth_scene/fourth_scene.tscn" id="11_q2kke"]
@@ -27,6 +29,9 @@ script = ExtResource("2_erteh")
 
 [node name="BugsManager" parent="Resources" instance=ExtResource("5_akiit")]
 script = ExtResource("2_erteh")
+
+[node name="UpgradeManager" parent="Resources" instance=ExtResource("6_k3pqb")]
+script = ExtResource("7_c5ono")
 
 [node name="Clock" parent="." instance=ExtResource("2_8v8eg")]
 

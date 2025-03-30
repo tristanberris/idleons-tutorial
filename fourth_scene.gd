@@ -45,15 +45,23 @@ func _on_button_pressed()-> void:
 	#(get_node("Label") as Label).text = "Bugs eaten: %s"%BugsManager.ref.get_bugs_eaten()
 ## Try to unlock feature
 func _try_to_unlock(upgrade:String) -> void:
-	
-	if upgrade == "bugUpgradeOne":
-		if Game.ref.data.progression.bug_collector_unlocked:return
-		var error:Error = BugsManager.ref.spend_eaten_bugs(COST)
-		if error:return
+	##goal: pass string into upgrade manager, return whether upgrade was successful
+	####if successful, do something
+	var upgrade_success = UpgradeManager.ref._increase_upgrade_level(upgrade)
+	if upgrade_success:
 		Game.ref.data.progression.bug_collector_unlocked = true
 		BugsEatenGenerator.ref.start_generator()
 		_display_view(true) ##connects to above function
-		#pass #TODO
+	
+	pass
+	#if upgrade == "bugUpgradeOne":
+		#if Game.ref.data.progression.bug_collector_unlocked:return
+		#var error:Error = BugsManager.ref.spend_eaten_bugs(COST)
+		#if error:return
+		#Game.ref.data.progression.bug_collector_unlocked = true
+		#BugsEatenGenerator.ref.start_generator()
+		#_display_view(true) ##connects to above function
+		##pass #TODO
 		
 	#if Game.ref.data.progression.second_scene_unlocked:return		
 #
