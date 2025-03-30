@@ -11,3 +11,5 @@ extends Resource
 @export var progression:DataProgression = DataProgression.new()
 ## Contains crystal data.
 @export var crystals:DataCrystals = DataCrystals.new()
+## Contains bugs data
+@export var bugs:DataBugs = DataBugs.new()
