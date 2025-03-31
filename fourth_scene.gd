@@ -20,14 +20,14 @@ func _ready()-> void:
 	#update_label()
 	#_update_inventory_slots()
 	if Game.ref.data.progression.bug_collector_unlocked:
-		_display_view(true)
+		# Only instantiate the generator if the collector is unlocked
+		var nutrients_gen = NutrientsGenerator.new()
+		nutrients_gen.generator_name = "NutrientsGenerator"
+		GeneratorManager.ref.register_generator(nutrients_gen)
 	else:
 		_display_view(false)
 		(%BugCollectorUnlockButton as Button).pressed.connect(Callable(self, "_on_unlock_button_pressed").bind("bugUpgradeOne"))
-	var nutrients_gen = NutrientsGenerator.new()
-	# Optionally, set a unique name:
-	nutrients_gen.generator_name = "NutrientsGenerator"
-	GeneratorManager.ref.register_generator(nutrients_gen)
+
 
 
 ## displays the locked or unlocked tab based on the argument
@@ -59,14 +59,13 @@ func _try_to_unlock(upgrade:String) -> void:
 		
 		# Use the manager to get the correct generator instance
 		var gen = GeneratorManager.ref.get_generator_by_name("NutrientsGenerator")
-		if gen:
+		if gen == null:
+			gen = NutrientsGenerator.new()
+			gen.generator_name = "NutrientsGenerator"
 			GeneratorManager.ref.register_generator(gen)
-			gen.start_generator()
-		else:
-			print("NutrientsGenerator instance not found")
-		_display_view(true)
+		gen.start_generator()
 
-	pass
+	
 		##pass #TODO
 
 ## Reaction to unlock button being pressed

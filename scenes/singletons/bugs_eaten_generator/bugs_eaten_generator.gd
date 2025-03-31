@@ -6,7 +6,7 @@ extends GeneratorResource
 #static var ref: BugsEatenGenerator
 
 func _init() -> void:
-	generator_name = "Bugs Eaten Generator"
+	generator_name = "NutrientsGenerator"
 	production_rate = 2.0  # Example base rate
 	#var myBugsEatenGenerator = BugsEatenGenerator.new()
 	#BugsEatenGenerator.ref = myBugsEatenGenerator
@@ -36,22 +36,20 @@ func _progress_cycle()->void:
 	_cycle_progression += 0.5
 	
 	if _cycle_progression >= _cycle_duration:
-		_generate()
-		
+		#_generate()
+		pass
 ## Generate resources and refresh the cycle progression.
-func _generate()->void:
-	_cycle_progression -= _cycle_duration
-	BugsManager.ref.consume_bugs(_production) #TODO
+#func _generate()->void:
+	#_cycle_progression -= _cycle_duration
+	#BugsManager.ref.consume_bugs(_production) #TODO
 	
 ## Unpauses the generator
 func start_generator() -> void:
 	if Game.ref.data.progression.bug_collector_unlocked == false:
 		return
-	var new_gen = NutrientsGenerator.new()  # Create a new instance
-	GeneratorManager.ref.register_generator(new_gen)
-	
-	
-	
+	#var new_gen = NutrientsGenerator.new()  # Create a new instance
+	#GeneratorManager.ref.register_generator(new_gen)
+
 	_paused = false
 	
 		
