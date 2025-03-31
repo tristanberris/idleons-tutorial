@@ -20,11 +20,13 @@ func _init() -> void:
 	else:queue_free()
 
 
-func add_resource(resource_type: String, amount: float):
+func add_resource(resource_type: String, amount: float) -> void:
 	if resource_type in resources:
 		resources[resource_type] += amount
 	else:
 		resources[resource_type]=amount
+		
+	# Emit a signal so UI elements can update
 	emit_signal("resource_updated", resource_type, resources[resource_type])
 	print(resource_type, " now has ", resources[resource_type], " units.")
 

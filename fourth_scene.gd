@@ -24,6 +24,11 @@ func _ready()-> void:
 	else:
 		_display_view(false)
 		(%BugCollectorUnlockButton as Button).pressed.connect(Callable(self, "_on_unlock_button_pressed").bind("bugUpgradeOne"))
+	var bugs_gen = BugsEatenGenerator.new()
+	# Optionally, set a unique name:
+	bugs_gen.generator_name = "BugsEatenGenerator"
+	GeneratorManager.ref.register_generator(bugs_gen)
+
 
 ## displays the locked or unlocked tab based on the argument
 func _display_view(unlocked:bool = false) -> void:
@@ -50,22 +55,17 @@ func _try_to_unlock(upgrade:String) -> void:
 	var upgrade_success = UpgradeManager.ref._increase_upgrade_level(upgrade)
 	if upgrade_success:
 		Game.ref.data.progression.bug_collector_unlocked = true
-		BugsEatenGenerator.ref.start_generator()
-		_display_view(true) ##connects to above function
-	
+		# Use the manager to get the correct generator instance
+		var gen = GeneratorManager.ref.get_generator_by_name("BugsEatenGenerator")
+		if gen:
+			gen.start_generator()
+		else:
+			print("BugsEatenGenerator instance not found")
+		_display_view(true)
+
 	pass
-	#if upgrade == "bugUpgradeOne":
-		#if Game.ref.data.progression.bug_collector_unlocked:return
-		#var error:Error = BugsManager.ref.spend_eaten_bugs(COST)
-		#if error:return
-		#Game.ref.data.progression.bug_collector_unlocked = true
-		#BugsEatenGenerator.ref.start_generator()
-		#_display_view(true) ##connects to above function
 		##pass #TODO
-		
-	#if Game.ref.data.progression.second_scene_unlocked:return		
-#
-	#var error:Error = IdleonsManager.ref.consume_idleons(COST)
+
 ## Reaction to unlock button being pressed
 func _on_unlock_button_pressed(upgrade:String) -> void:
 	_try_to_unlock(upgrade)
