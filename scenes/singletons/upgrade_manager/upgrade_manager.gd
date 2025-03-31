@@ -43,8 +43,8 @@ func _increase_upgrade_level(upgrade_id:String)->bool:
 		var upgrade = upgrades[upgrade_id] ##This is assigning the dictionary entry to upgrade
 		var cost = calculate_upgrade_cost(upgrade["cost"], upgrade["level"])
 
-		if resources.bugs_eaten >= cost:  ## Check if player has enough bugs
-			resources.bugs_eaten -= cost  ## Deduct bugs
+		if resources.nutrients >= cost:  ## Check if player has enough bugs
+			resources.nutrients -= cost  ## Deduct bugs
 			upgrades[upgrade_id]["level"] += 1  ## Increase level
 			return true  ## Successful purchase
 		

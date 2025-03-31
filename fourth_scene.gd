@@ -24,10 +24,10 @@ func _ready()-> void:
 	else:
 		_display_view(false)
 		(%BugCollectorUnlockButton as Button).pressed.connect(Callable(self, "_on_unlock_button_pressed").bind("bugUpgradeOne"))
-	var bugs_gen = BugsEatenGenerator.new()
+	var nutrients_gen = NutrientsGenerator.new()
 	# Optionally, set a unique name:
-	bugs_gen.generator_name = "BugsEatenGenerator"
-	GeneratorManager.ref.register_generator(bugs_gen)
+	nutrients_gen.generator_name = "NutrientsGenerator"
+	GeneratorManager.ref.register_generator(nutrients_gen)
 
 
 ## displays the locked or unlocked tab based on the argument
@@ -38,7 +38,8 @@ func _display_view(unlocked:bool = false) -> void:
 
 ## Create a crystal and add it to the list
 func _eat_bug(quantity:int)->void:
-	BugsManager.ref.consume_bugs(quantity)
+	
+	ResourceManager.ref.add_resource("nutrients", quantity)
 	#_instantiate_inventory_slot(_crystals.size()-1)
 	#update_label()
 	
@@ -55,12 +56,14 @@ func _try_to_unlock(upgrade:String) -> void:
 	var upgrade_success = UpgradeManager.ref._increase_upgrade_level(upgrade)
 	if upgrade_success:
 		Game.ref.data.progression.bug_collector_unlocked = true
+		
 		# Use the manager to get the correct generator instance
-		var gen = GeneratorManager.ref.get_generator_by_name("BugsEatenGenerator")
+		var gen = GeneratorManager.ref.get_generator_by_name("NutrientsGenerator")
 		if gen:
+			GeneratorManager.ref.register_generator(gen)
 			gen.start_generator()
 		else:
-			print("BugsEatenGenerator instance not found")
+			print("NutrientsGenerator instance not found")
 		_display_view(true)
 
 	pass

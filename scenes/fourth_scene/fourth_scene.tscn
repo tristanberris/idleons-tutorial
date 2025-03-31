@@ -6,11 +6,12 @@
 script/source = "extends Label
 
 func _ready()->void:
-	BugsManager.ref.bugs_updated.connect(_on_bugs_eaten_updated)
+	ResourceManager.ref.connect(\"resource_updated\", Callable(self, \"_on_resource_updated\"))
 	
 
-func _on_bugs_eaten_updated()->void:
-	text=\"Bugs eaten: %s\"%BugsManager.ref.get_bugs_eaten()
+func _on_resource_updated(resource_type: String, new_amount: float) -> void:
+	if resource_type == \"nutrients\":
+		text = \"Nutrients: \" + str(new_amount)
 "
 
 [node name="FourthScene" type="Control"]

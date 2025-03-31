@@ -18,14 +18,14 @@ func _init() -> void:
 # Assume ResourceManager is set up as a singleton using your preferred pattern
 # e.g., ResourceManager.ref.add_resource(...)
 
-func _ready():
-	# Start a timer that ticks every second (or any appropriate interval)
-	var timer = Timer.new()
-	timer.wait_time = 1.0
-	timer.one_shot = false
-	add_child(timer)
-	timer.start()
-	timer.timeout.connect(_on_timer_timeout)
+#func _ready():
+	## Start a timer that ticks every second (or any appropriate interval)
+	#var timer = Timer.new()
+	#timer.wait_time = 1.0
+	#timer.one_shot = false
+	#add_child(timer)
+	#timer.start()
+	#timer.timeout.connect(_on_timer_timeout)
 
 func _on_timer_timeout():
 	# Process each generator

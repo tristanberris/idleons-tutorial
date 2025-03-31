@@ -1,4 +1,4 @@
-class_name BugsEatenGenerator
+class_name NutrientsGenerator
 extends GeneratorResource
 ## Passively generates resource
 
@@ -41,13 +41,13 @@ func _progress_cycle()->void:
 ## Generate resources and refresh the cycle progression.
 func _generate()->void:
 	_cycle_progression -= _cycle_duration
-	BugsManager.ref.consume_bugs(_production)
+	BugsManager.ref.consume_bugs(_production) #TODO
 	
 ## Unpauses the generator
 func start_generator() -> void:
 	if Game.ref.data.progression.bug_collector_unlocked == false:
 		return
-	var new_gen = BugsEatenGenerator.new()  # Create a new instance
+	var new_gen = NutrientsGenerator.new()  # Create a new instance
 	GeneratorManager.ref.register_generator(new_gen)
 	
 	
