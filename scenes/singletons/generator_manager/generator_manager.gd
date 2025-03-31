@@ -1,9 +1,20 @@
+class_name GeneratorManager
 extends Node
 
 var generators: Array[GeneratorResource] = []
+#@onready var generator_manager = get_node("/root/GeneratorManager")
 
-func _ready():
-	$Timer.start()
+## Singleton Reference
+static var ref:GeneratorManager
+## Constructor
+func _init()->void:
+	if not ref:ref=self
+	else:queue_free()
+	
+signal generators_updated
+#func _ready():
+	##$Timer.start()
+	#pass
 
 ## Process generator production every tick
 func _on_timer_timeout():

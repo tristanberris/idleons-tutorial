@@ -1,3 +1,4 @@
+class_name Generator
 extends Node
 
 ## Base production rate (e.g., units per second)

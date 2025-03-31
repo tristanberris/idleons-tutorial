@@ -1,14 +1,16 @@
 class_name BugsEatenGenerator
-extends Node
+extends GeneratorResource
 ## Passively generates resource
 
 ## Singleton reference
 static var ref:BugsEatenGenerator
 
+#@onready var generator_manager = get_node("Resources/GeneratorManager")
+
 ## Constructor
-func _init() -> void:
-	if not ref:ref=self
-	else: queue_free()
+#func _init() -> void:
+	#if not ref:ref=self
+	#else: queue_free()
 
 
 ## Duration of a production cycle
@@ -45,6 +47,9 @@ func _generate()->void:
 func start_generator() -> void:
 	if Game.ref.data.progression.bug_collector_unlocked == false:
 		return
+	var bugs_eaten_generator = BugsEatenGenerator.new()
+	GeneratorManager.ref.register_generator(bugs_eaten_generator)
+	
 	
 	_paused = false
 	

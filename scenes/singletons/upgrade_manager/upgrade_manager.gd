@@ -23,7 +23,7 @@ var data:Data = Game.ref.data
 var upgrades = {
 	"bugUpgradeOne": {
 		"name": "Bug Catcher",
-		"cost": 10,
+		"cost": 5,
 		"level": 0,
 		"effect": "Catches bugs at a linear rate",
 		"upgrade_id": "bugUpgradeOne"
