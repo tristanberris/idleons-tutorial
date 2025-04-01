@@ -4,8 +4,26 @@ class_name GeneratorManager
 # Singleton reference
 static var ref: GeneratorManager
 
+# Base generator stats – these values never change during gameplay.
+var base_generators: Dictionary = {
+	"bugUpgradeOne": {
+		"name": "Bug Catcher",
+		"cost": 5,
+		"effect": "Catches bugs at a linear rate",
+		"generator_id": "bugUpgradeOne"
+	},
+	"bugUpgradeTwo": {
+		"name": "Second Bug Catcher",
+		"cost": 25,
+		"effect": "Catches bugs at a linear rate",
+		"generator_id": "bugUpgradeTwo"
+	}
+}
+
+# Runtime state for each generator – these values change during gameplay.
+var runtime_generators: Dictionary = {}
 # Array to store generator resources
-var generators: Array = []
+#var generators: Array = []
 
 # Constructor: ensure only one instance exists
 func _init() -> void:
@@ -19,28 +37,74 @@ func _init() -> void:
 # e.g., ResourceManager.ref.add_resource(...)
 
 func _ready():
-	# Start a timer that ticks every second (or any appropriate interval)
+	_initialize_runtime_generators()
+	# Create a timer to process generator production every second.
 	var timer = Timer.new()
 	timer.wait_time = 1.0
 	timer.one_shot = false
 	add_child(timer)
-	timer.start()
 	timer.timeout.connect(_on_timer_timeout)
+	timer.start()
 
-func _on_timer_timeout():
-	# Process each generator
-	for generator in generators:
-		var produced_amount = generator.produce()
-		# Add production to the global resource.
-		# For example, if resource_type is "bugs_eaten":
-		ResourceManager.ref.add_resource(generator.resource_type, produced_amount)
+# Create a mutable copy of the base generator stats.
+func _initialize_runtime_generators() -> void:
+	for id in base_generators.keys():
+		runtime_generators[id] = {
+			"level": 0,
+			"cost": base_generators[id]["cost"],
+			"active": false
+		}
 
-# Helper function to get a generator by name (or another unique identifier)
-func get_generator_by_name(name: String) -> GeneratorResource:
-	for generator in generators:
-		if generator.generator_name == name:
-			return generator
+# Retrieves the runtime data for a given generator.
+func get_generator_runtime_data(generator_id: String):
+	if runtime_generators.has(generator_id): ##Issue is likely the .has
+		return runtime_generators[generator_id]
+	print("No runtime data found for generator:", generator_id)
 	return null
 
-func register_generator(generator: GeneratorResource) -> void:
-	generators.append(generator)
+# Check if the generator can be purchased.
+func can_purchase_generator(generator_id: String) -> bool:
+	var runtime_data_variant = get_generator_runtime_data(generator_id)
+	if runtime_data_variant == null:
+		return false
+	var runtime_data: Dictionary = runtime_data_variant as Dictionary
+	# Assume the resource is "bugs" – adjust as needed.
+	if ResourceManager.ref.get_resource_amounts("nutrients") >= runtime_data["cost"]:
+		return true
+	return false
+
+# Process the purchase and delegate any upgrade logic.
+func purchase_generator(generator_id: String) -> bool:
+	if not can_purchase_generator(generator_id):
+		print("Insufficient resources to purchase generator: ", generator_id)
+		return false
+
+	var runtime_data_variant = get_generator_runtime_data(generator_id)
+	if runtime_data_variant == null:
+		print("Runtime data for generator ", generator_id, " not found!")
+		return false
+
+	# Cast the returned variant to a Dictionary.
+	var runtime_data: Dictionary = runtime_data_variant as Dictionary
+
+	# Now you can safely use it.
+	ResourceManager.ref.remove_resource("nutrients", runtime_data["cost"])
+	runtime_data["level"] += 1
+	runtime_data["active"] = true  # Mark as active.
+	print("Purchased generator: ", base_generators[generator_id]["name"], " new level: ", runtime_data["level"])
+	if runtime_data["level"] > 1:
+		UpgradeManager.ref.apply_upgrade(generator_id, runtime_data)#TODO
+	return true
+	
+func _on_timer_timeout() -> void:
+	for generator_id in runtime_generators.keys():
+		var data = runtime_generators[generator_id] as Dictionary
+		if data.has("active") and data["active"]:
+			var produced_amount = _calculate_production(generator_id, data)
+			ResourceManager.ref.add_resource("nutrients", produced_amount)
+			#print("Generator", generator_id, "produced", produced_amount, "bugs.")
+	
+
+func _calculate_production(generator_id: String, data: Dictionary) -> float:
+	var base_rate = base_generators[generator_id].get("production_rate", 1.0)
+	return base_rate * data["level"]

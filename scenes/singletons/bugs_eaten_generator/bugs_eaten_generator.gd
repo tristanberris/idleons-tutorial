@@ -52,7 +52,16 @@ func start_generator() -> void:
 
 	_paused = false
 	
-		
+func purchase():
+	if Game.ref.data.progression.bug_collector_unlocked == false:
+		return
+
+	#active = true ##TODO pretty sure this stuff does nothing 
+	#_paused = false
+	#_cycle_progression = 0.0
+
+	print("Nutrients generator purchased and activated.")
+
 ## Triggered when the clock just ticked.
 func _on_clock_ticked()->void:
 	_progress_cycle()

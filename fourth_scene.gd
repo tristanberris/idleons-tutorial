@@ -26,7 +26,7 @@ func _ready()-> void:
 		GeneratorManager.ref.register_generator(nutrients_gen)
 	else:
 		_display_view(false)
-		(%BugCollectorUnlockButton as Button).pressed.connect(Callable(self, "_on_unlock_button_pressed").bind("bugUpgradeOne"))
+		#(%BugCollectorUnlockButton as Button).pressed.connect(Callable(self, "_on_unlock_button_pressed").bind("bugUpgradeOne"))
 
 
 
@@ -53,6 +53,7 @@ func _on_button_pressed()-> void:
 func _try_to_unlock(upgrade:String) -> void:
 	##goal: pass string into upgrade manager, return whether upgrade was successful
 	####if successful, do something
+	GeneratorManager.ref.purchase_nutrients_generator()
 	var upgrade_success = UpgradeManager.ref._increase_upgrade_level(upgrade)
 	if upgrade_success:
 		Game.ref.data.progression.bug_collector_unlocked = true

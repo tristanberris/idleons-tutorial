@@ -35,6 +35,16 @@ func add_resource(resource_type: String, amount: float) -> void:
 	emit_signal("resource_updated", resource_type, resources[resource_type])
 	print(resource_type, " now has ", resources[resource_type], " units.")
 
+func remove_resource(resource_type: String, amount: float) -> void:
+	if resource_type in resources:
+		resources[resource_type] -= amount
+	else:
+		resources[resource_type] = amount
+		
+	# Update the global data directly for "bugs_eaten"
+	if resource_type == "nutrients":
+		Game.ref.data.resources.nutrients = resources[resource_type]
+	
 
 func get_resource_amounts(resource_type:String)->float:
 	if resource_type == "nutrients":

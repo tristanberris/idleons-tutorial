@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://b83ss7rsln8uk"]
+[gd_scene load_steps=4 format=3 uid="uid://b83ss7rsln8uk"]
 
 [ext_resource type="Script" path="res://fourth_scene.gd" id="1_oy3yn"]
 
@@ -12,6 +12,32 @@ func _ready()->void:
 func _on_resource_updated(resource_type: String, new_amount: float) -> void:
 	if resource_type == \"nutrients\":
 		text = \"Nutrients: \" + str(new_amount)
+"
+
+[sub_resource type="GDScript" id="GDScript_out3a"]
+script/source = "#class_name BugCollectorButton
+extends Button
+
+# This variable lets you set the generator identifier in the Inspector.
+var generator_id = \"bugUpgradeOne\"
+
+# Reference to the manager that handles generator logic.
+# Adjust the node path to match your project’s hierarchy.
+@onready var generator_manager = GeneratorManager.ref
+
+func _ready():
+	# Connect the button's pressed signal to our custom function.
+	connect(\"pressed\", Callable(self, \"_on_button_pressed\"))
+
+func _on_button_pressed():
+	# Check if the generator can be purchased (e.g., has enough resources, prerequisites, etc.).
+	if generator_manager.can_purchase_generator(generator_id):
+		# If the purchase is valid, call the purchase function.
+		generator_manager.purchase_generator(generator_id)
+		print(\"Generator purchased successfully!\")
+	else:
+		# Optionally provide feedback if the purchase cannot be made.
+		print(\"Insufficient resources or prerequisites not met to purchase this generator.\")
 "
 
 [node name="FourthScene" type="Control"]
@@ -106,6 +132,7 @@ layout_mode = 2
 size_flags_horizontal = 4
 text = "Unlock 
 Bug Collecter"
+script = SubResource("GDScript_out3a")
 
 [node name="Button2" type="Button" parent="MarginContainer/HBoxContainer/RightPanel/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(150, 100)
