@@ -10,13 +10,17 @@ var base_generators: Dictionary = {
 		"name": "Bug Catcher",
 		"cost": 5,
 		"effect": "Catches bugs at a linear rate",
-		"generator_id": "bugUpgradeOne"
+		"generator_id": "bugUpgradeOne",
+		"production_rate": 1,
+		"amount_owned": 0
 	},
 	"bugUpgradeTwo": {
 		"name": "Second Bug Catcher",
 		"cost": 25,
 		"effect": "Catches bugs at a linear rate",
-		"generator_id": "bugUpgradeTwo"
+		"generator_id": "bugUpgradeTwo",
+		"production_rate": 5,
+		"amount_owned": 0
 	}
 }
 
@@ -40,7 +44,7 @@ func _ready():
 	_initialize_runtime_generators()
 	# Create a timer to process generator production every second.
 	var timer = Timer.new()
-	timer.wait_time = 1.0
+	timer.wait_time = 0.5
 	timer.one_shot = false
 	add_child(timer)
 	timer.timeout.connect(_on_timer_timeout)
@@ -52,7 +56,8 @@ func _initialize_runtime_generators() -> void:
 		runtime_generators[id] = {
 			"level": 0,
 			"cost": base_generators[id]["cost"],
-			"active": false
+			"active": false,
+			"amount_owned": 0
 		}
 
 # Retrieves the runtime data for a given generator.
@@ -90,9 +95,10 @@ func purchase_generator(generator_id: String) -> bool:
 	# Now you can safely use it.
 	ResourceManager.ref.remove_resource("nutrients", runtime_data["cost"])
 	runtime_data["level"] += 1
+	runtime_data["amount_owned"] += 1
 	runtime_data["active"] = true  # Mark as active.
 	print("Purchased generator: ", base_generators[generator_id]["name"], " new level: ", runtime_data["level"])
-	if runtime_data["level"] > 1:
+	if runtime_data["level"] > 0:
 		UpgradeManager.ref.apply_upgrade(generator_id, runtime_data)#TODO
 	return true
 	

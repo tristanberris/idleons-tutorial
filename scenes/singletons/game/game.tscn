@@ -53,21 +53,21 @@ grow_horizontal = 2
 grow_vertical = 2
 current_tab = 0
 
-[node name="FirstScene" parent="TabContainer" instance=ExtResource("2_3sooq")]
+[node name="FourthScene" parent="TabContainer" instance=ExtResource("11_q2kke")]
 layout_mode = 2
 metadata/_tab_index = 0
 
-[node name="SecondScene" parent="TabContainer" instance=ExtResource("3_uc2n7")]
+[node name="FirstScene" parent="TabContainer" instance=ExtResource("2_3sooq")]
 visible = false
 layout_mode = 2
 metadata/_tab_index = 1
 
-[node name="ThirdScene" parent="TabContainer" instance=ExtResource("7_oovdm")]
+[node name="SecondScene" parent="TabContainer" instance=ExtResource("3_uc2n7")]
 visible = false
 layout_mode = 2
 metadata/_tab_index = 2
 
-[node name="FourthScene" parent="TabContainer" instance=ExtResource("11_q2kke")]
+[node name="ThirdScene" parent="TabContainer" instance=ExtResource("7_oovdm")]
 visible = false
 layout_mode = 2
 metadata/_tab_index = 3

@@ -1,0 +1,2 @@
+This is a bunch of notes and observations on the code of my game.
+A Production Rate variable in my GeneratorManager is what dictates the amount of resources.
