@@ -57,7 +57,8 @@ func _initialize_runtime_generators() -> void:
 			"level": 0,
 			"cost": base_generators[id]["cost"],
 			"active": false,
-			"amount_owned": 0
+			"amount_owned": 0,
+			"production_rate": base_generators[id]["production_rate"]
 		}
 
 # Retrieves the runtime data for a given generator.
@@ -94,7 +95,9 @@ func purchase_generator(generator_id: String) -> bool:
 
 	# Now you can safely use it.
 	ResourceManager.ref.remove_resource("nutrients", runtime_data["cost"])
+	#if runtime_data["level"] == 0:
 	runtime_data["level"] += 1
+		
 	runtime_data["amount_owned"] += 1
 	runtime_data["active"] = true  # Mark as active.
 	print("Purchased generator: ", base_generators[generator_id]["name"], " new level: ", runtime_data["level"])

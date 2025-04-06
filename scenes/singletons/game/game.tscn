@@ -1,18 +1,13 @@
-[gd_scene load_steps=18 format=3 uid="uid://dlavhneqf3y7v"]
+[gd_scene load_steps=13 format=3 uid="uid://dlavhneqf3y7v"]
 
 [ext_resource type="Script" path="res://scenes/singletons/game/game.gd" id="1_ge8ti"]
-[ext_resource type="PackedScene" uid="uid://db404cimuea4c" path="res://scenes/first_scene/first_scene.tscn" id="2_3sooq"]
 [ext_resource type="PackedScene" uid="uid://ckl2yivtudf2a" path="res://scenes/singletons/clock/clock.tscn" id="2_8v8eg"]
 [ext_resource type="Script" path="res://scenes/singletons/bugs_manager/bugs_manager.gd" id="2_erteh"]
-[ext_resource type="PackedScene" uid="uid://b3ivif45jpl4y" path="res://scenes/singletons/idleons_manager/idleons_manager.tscn" id="2_op8e6"]
-[ext_resource type="PackedScene" uid="uid://duvtr6yhi2722" path="res://scenes/singletons/crystal_dust_manager/crystal_dust_manager.tscn" id="3_bn3l6"]
-[ext_resource type="PackedScene" uid="uid://j4k4ltp7nca1" path="res://scenes/second_scene/second_scene.tscn" id="3_uc2n7"]
 [ext_resource type="PackedScene" uid="uid://dtf2dpashb4q7" path="res://scenes/singletons/crystal_inventory/crystal_inventory.tscn" id="5_a4quk"]
 [ext_resource type="PackedScene" uid="uid://cork721okqyxr" path="res://scenes/singletons/bugs_manager/bugs_manager.tscn" id="5_akiit"]
 [ext_resource type="PackedScene" uid="uid://co11w3ia38wpv" path="res://scenes/singletons/excavator/excavator.tscn" id="6_327kf"]
 [ext_resource type="PackedScene" uid="uid://bpyisi62gltaw" path="res://scenes/singletons/upgrade_manager/upgrade_manager.tscn" id="6_k3pqb"]
 [ext_resource type="PackedScene" uid="uid://j5xbgo3kvif0" path="res://scripts/Managers/generator_manager/generator_manager.tscn" id="7_ghg6h"]
-[ext_resource type="PackedScene" uid="uid://cqei8xr13emvo" path="res://scenes/third_scene/third_scene.tscn" id="7_oovdm"]
 [ext_resource type="Script" path="res://scripts/Managers/generator_manager/generator_manager.gd" id="8_mcoq1"]
 [ext_resource type="PackedScene" uid="uid://b8xbx3modfn" path="res://scenes/singletons/resource_manager/resource_manager.tscn" id="9_qtqeq"]
 [ext_resource type="Script" path="res://scenes/singletons/resource_manager/resource_manager.gd" id="10_skl87"]
@@ -23,10 +18,6 @@ script = ExtResource("1_ge8ti")
 
 [node name="Resources" type="Node" parent="."]
 script = ExtResource("2_erteh")
-
-[node name="IdleonsManager" parent="Resources" instance=ExtResource("2_op8e6")]
-
-[node name="CrystalDustManager" parent="Resources" instance=ExtResource("3_bn3l6")]
 
 [node name="BugsManager" parent="Resources" instance=ExtResource("5_akiit")]
 script = ExtResource("2_erteh")
@@ -51,23 +42,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-current_tab = 0
 
-[node name="FourthScene" parent="TabContainer" instance=ExtResource("11_q2kke")]
-layout_mode = 2
-metadata/_tab_index = 0
-
-[node name="FirstScene" parent="TabContainer" instance=ExtResource("2_3sooq")]
-visible = false
-layout_mode = 2
-metadata/_tab_index = 1
-
-[node name="SecondScene" parent="TabContainer" instance=ExtResource("3_uc2n7")]
-visible = false
-layout_mode = 2
-metadata/_tab_index = 2
-
-[node name="ThirdScene" parent="TabContainer" instance=ExtResource("7_oovdm")]
-visible = false
-layout_mode = 2
-metadata/_tab_index = 3
+[node name="FourthScene" parent="." instance=ExtResource("11_q2kke")]
+offset_top = 31.0

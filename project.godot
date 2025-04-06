@@ -10,10 +10,14 @@ config_version=5
 
 [application]
 
-config/name="New Game Project"
+config/name="frog-game"
 run/main_scene="res://scenes/singletons/game/game.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://icon.svg"
+
+[autoload]
+
+Popups="*res://scenes/singletons/popups/popups.tscn"
 
 [debug]
 

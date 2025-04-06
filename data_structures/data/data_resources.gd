@@ -7,7 +7,8 @@ extends Resource
 ## You can add more resources in the future if needed.
 @export var data = {
 	"resources": {
-		"nutrients": 0
+		"nutrients": 0,
+		"water": 0
 	},
 	"progression": {
 		"bug_collector_unlocked": false
@@ -19,3 +20,5 @@ extends Resource
 @export var crystal_dust:int = 0
 ## Amount of bugs player has eaten
 @export var nutrients:int = 0
+##Amount of water player has
+@export var water:int = 0

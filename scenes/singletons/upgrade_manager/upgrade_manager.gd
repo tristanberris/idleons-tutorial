@@ -7,8 +7,9 @@ static var ref:UpgradeManager
 
 # A dictionary mapping generator IDs to their cost scaling factors.
 var upgrade_scaling_factors: Dictionary = {
+	"bugGeneratorOne": 1.5,
 	"bugUpgradeOne": 1.5,
-	"bugUpgradeTwo": 1.8
+	"bugUpgradeOneCost": 1.1
 }
 
 ## Constructor
@@ -45,6 +46,8 @@ func apply_upgrade(generator_id: String, runtime_data: Dictionary) -> void:
 	
 	print("Applied upgrade for ", base_data["name"], ". New cost: ", new_cost)
 
+func increase_production_rate(upgrade_id: String) -> bool:
+	return _increase_production_rate(upgrade_id)
 
 ## Emitted when upgrades are updated
 signal updated
@@ -86,7 +89,47 @@ func _increase_upgrade_level(upgrade_id:String)->bool:
 	print("false")
 	return false  ## Not enough bugs or invalid upgrade
 	
-
+func _increase_production_rate(upgrade_id: String) -> bool:
+	if Game.ref.data.progression.bug_collector_unlocked:
+		if upgrade_id in upgrades and Game.ref.data.progression.bug_collector_unlocked:
+			var upgrade = upgrades[upgrade_id]
+			# Calculate cost based on base cost and current level
+			var cost = calculate_upgrade_cost(upgrade["cost"], upgrade["level"])
+			if resources.nutrients >= cost:
+				resources.nutrients -= cost
+				upgrades[upgrade_id]["level"] += 1
+				
+				# Retrieve the corresponding generator by its upgrade id (assuming the names match)
+				var generator = GeneratorManager.ref.get_generator_runtime_data(upgrade_id)
+				if generator:
+					# Retrieve the base data for the generator (including its base production rate)
+					var base_data = GeneratorManager.ref.base_generators.get(upgrade_id, null)
+					if base_data:
+						var base_rate = base_data.get("production_rate", 1)
+						# Use the scaling factor defined for this upgrade to adjust production rate.
+						# For example, production rate might scale multiplicatively with the upgrade level:
+						var scaling_factor = upgrade_scaling_factors.get(upgrade_id, 1.0)
+						var scaling_factor_cost = upgrade_scaling_factors.get(upgrade_id+"Cost",1.0)
+						generator["cost"] = base_rate * pow(scaling_factor_cost, upgrade["level"])	
+						base_data["production_rate"] =  base_rate * pow(scaling_factor, upgrade["level"])	
+						#generator["production_rate"] = base_rate * pow(scaling_factor, upgrade["level"])					
+						print("Production rate upgraded for ", base_data["name"], ". New production rate: ", base_data["production_rate"])
+					else:
+						print("No base data found for generator: ", upgrade_id)
+				else:
+					print("No generator found for upgrade id: ", upgrade_id)
+				
+				emit_signal("updated")
+				return true
+			else:
+				print("Not enough nutrients for production rate upgrade")
+				return false
+		else:
+			print("Upgrade id ", upgrade_id, " not found")
+			return false
+	else:
+		print("Generator ", upgrade_id, " not unlocked")
+		return false
 
 ### Increases the cost of an upgrade when bought
 func calculate_upgrade_cost(base_cost: int, level: int) -> int:

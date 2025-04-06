@@ -1,0 +1,34 @@
+[gd_scene load_steps=2 format=3 uid="uid://cylpqfgsa80qr"]
+
+[ext_resource type="Script" path="res://popups.gd" id="1_yspm7"]
+
+[node name="Popups" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_yspm7")
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="ItemPopup" type="PopupPanel" parent="UI"]
+unique_name_in_owner = true
+initial_position = 1
+size = Vector2i(200, 200)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/ItemPopup"]
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 196.0
+offset_bottom = 196.0
+
+[node name="Label" type="Label" parent="UI/ItemPopup/VBoxContainer"]
+layout_mode = 2
+theme_type_variation = &"HeaderLarge"
+text = "Stat	"
+
+[node name="Label2" type="Label" parent="UI/ItemPopup/VBoxContainer"]
+layout_mode = 2
+text = "Info"
