@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://b83ss7rsln8uk"]
+[gd_scene load_steps=17 format=3 uid="uid://b83ss7rsln8uk"]
 
 [ext_resource type="Script" path="res://fourth_scene.gd" id="1_oy3yn"]
 [ext_resource type="Texture2D" uid="uid://dehcg1bxe1p6f" path="res://mountain-lake-featured_1024x.jpg" id="2_7bktm"]
@@ -120,6 +120,34 @@ func _update_cost_display():
 	pass
 "
 
+[sub_resource type="GDScript" id="GDScript_7t7v5"]
+script/source = "#class_name BugCollectorButton
+extends Button
+
+# This variable lets you set the generator identifier in the Inspector.
+var building_id = \"researchLab\"
+
+func _ready() -> void:
+	(%UnlockResearchLabButton as Button).connect(\"pressed\", Callable(self, \"_on_unlock_button_pressed\"))
+	#_update_cost_display()
+	
+func _on_unlock_button_pressed() -> void:
+	#var success: bool = UpgradeManager.ref.increase_production_rate(\"bugUpgradeOne\")
+	var success: bool = BuildingsManager.ref.can_unlock_building(building_id)
+	if success:
+		print(\"Rearch building unlocked!\")
+		%UnlockResearchLabButton.disabled = true
+		BuildingsManager.ref.unlock_building(building_id)
+		#_update_cost_display()
+	else:
+		print(\"Not enough resources or unlock failed.\")
+		
+#func _update_cost_display():
+	##text = \"Upgrade Bug Collector\\n\"+\"Cost: \"+str(upgrade_info.cost)+\"\\n(\"+str(upgrade_info.level)+\")\"
+	#%UnlockResearchLabButton.disabled = true
+	#pass
+"
+
 [node name="FourthScene" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -135,7 +163,8 @@ anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = -33.0
-offset_right = 34.0
+offset_right = 22.0
+offset_bottom = -16.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/margin_left = 16
@@ -352,7 +381,8 @@ grow_vertical = 2
 mouse_filter = 2
 theme = SubResource("Theme_3l4ap")
 
-[node name="TabContainer" type="TabContainer" parent="MarginContainer/HBoxContainer/RightPanel/MarginContainer"]
+[node name="GameTabs" type="TabContainer" parent="MarginContainer/HBoxContainer/RightPanel/MarginContainer"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 35)
 layout_mode = 2
 mouse_filter = 2
@@ -361,67 +391,75 @@ theme_override_styles/tab_unselected = SubResource("StyleBoxFlat_jjauq")
 current_tab = 0
 tabs_position = 1
 
-[node name="Istockphoto-172168250-1024x10242" type="Sprite2D" parent="MarginContainer/HBoxContainer/RightPanel/MarginContainer/TabContainer"]
-position = Vector2(270.5, 418.5)
-scale = Vector2(1.26812, 1.63158)
+[node name="Istockphoto-172168250-1024x10242" type="Sprite2D" parent="MarginContainer/HBoxContainer/RightPanel/MarginContainer/GameTabs"]
+position = Vector2(270.5, 392)
+scale = Vector2(1.26812, 1.52827)
 texture = ExtResource("4_1p60a")
 
-[node name="MainTab" type="VBoxContainer" parent="MarginContainer/HBoxContainer/RightPanel/MarginContainer/TabContainer"]
+[node name="MainTab" type="VBoxContainer" parent="MarginContainer/HBoxContainer/RightPanel/MarginContainer/GameTabs"]
 unique_name_in_owner = true
 layout_mode = 2
 metadata/_tab_index = 0
 
-[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/RightPanel/MarginContainer/TabContainer/MainTab"]
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/RightPanel/MarginContainer/GameTabs/MainTab"]
 layout_mode = 2
 theme_type_variation = &"HeaderLarge"
 text = "unlockables"
 label_settings = SubResource("LabelSettings_lolo0")
 horizontal_alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer/RightPanel/MarginContainer/TabContainer/MainTab"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer/RightPanel/MarginContainer/GameTabs/MainTab"]
 layout_mode = 2
 size_flags_horizontal = 4
 
-[node name="BugCollectorUnlockOneButton" type="Button" parent="MarginContainer/HBoxContainer/RightPanel/MarginContainer/TabContainer/MainTab/HBoxContainer"]
+[node name="BugCollectorUnlockOneButton" type="Button" parent="MarginContainer/HBoxContainer/RightPanel/MarginContainer/GameTabs/MainTab/HBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(150, 100)
 layout_mode = 2
 text = "Unlock
-Bug Collector Mk.2
+Bug Lantern
 Cost: <Value>"
 script = SubResource("GDScript_efyds")
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/HBoxContainer/RightPanel/MarginContainer/TabContainer/MainTab"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/HBoxContainer/RightPanel/MarginContainer/GameTabs/MainTab"]
 layout_mode = 2
 size_flags_horizontal = 4
 
-[node name="UpgradeBugCollectorButton" type="Button" parent="MarginContainer/HBoxContainer/RightPanel/MarginContainer/TabContainer/MainTab/HBoxContainer2"]
+[node name="UpgradeBugCollectorButton" type="Button" parent="MarginContainer/HBoxContainer/RightPanel/MarginContainer/GameTabs/MainTab/HBoxContainer2"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(150, 100)
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Upgrade
-Bug Collector
+Bug Lantern
 Cost: <Value>"
 script = SubResource("GDScript_out3a")
 
-[node name="SecondTab" type="VBoxContainer" parent="MarginContainer/HBoxContainer/RightPanel/MarginContainer/TabContainer"]
+[node name="UnlockResearchLabButton" type="Button" parent="MarginContainer/HBoxContainer/RightPanel/MarginContainer/GameTabs/MainTab"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(150, 100)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Unlock Building"
+script = SubResource("GDScript_7t7v5")
+
+[node name="SecondTab" type="VBoxContainer" parent="MarginContainer/HBoxContainer/RightPanel/MarginContainer/GameTabs"]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
 metadata/_tab_index = 1
 
-[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/RightPanel/MarginContainer/TabContainer/SecondTab"]
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/RightPanel/MarginContainer/GameTabs/SecondTab"]
 layout_mode = 2
 theme_type_variation = &"HeaderLarge"
 text = "unlockables2"
 horizontal_alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer/RightPanel/MarginContainer/TabContainer/SecondTab"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer/RightPanel/MarginContainer/GameTabs/SecondTab"]
 layout_mode = 2
 size_flags_horizontal = 4
 
-[node name="BugCollectorUnlockOneButton" type="Button" parent="MarginContainer/HBoxContainer/RightPanel/MarginContainer/TabContainer/SecondTab/HBoxContainer"]
+[node name="BugCollectorUnlockOneButton" type="Button" parent="MarginContainer/HBoxContainer/RightPanel/MarginContainer/GameTabs/SecondTab/HBoxContainer"]
 custom_minimum_size = Vector2(150, 100)
 layout_mode = 2
 text = "Unlock
@@ -429,11 +467,11 @@ Bug Collector Mk.2
 Cost: <Value>"
 script = SubResource("GDScript_efyds")
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/HBoxContainer/RightPanel/MarginContainer/TabContainer/SecondTab"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/HBoxContainer/RightPanel/MarginContainer/GameTabs/SecondTab"]
 layout_mode = 2
 size_flags_horizontal = 4
 
-[node name="UpgradeBugCollectorButton" type="Button" parent="MarginContainer/HBoxContainer/RightPanel/MarginContainer/TabContainer/SecondTab/HBoxContainer2"]
+[node name="UpgradeBugCollectorButton" type="Button" parent="MarginContainer/HBoxContainer/RightPanel/MarginContainer/GameTabs/SecondTab/HBoxContainer2"]
 custom_minimum_size = Vector2(150, 100)
 layout_mode = 2
 size_flags_horizontal = 4

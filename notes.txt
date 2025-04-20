@@ -34,6 +34,8 @@ TODO:
 			[ ]: Do not increment nutrients from catching bugs, only increment bugs caught
 		[ ]: Create way for player to convert bugs into nutrients
 		[ ]: Create bug resource
+	[ ]: Create logic so when building is unlocked, a new tab appears
+			for the player to clock on
 ---
 Code notes:
 This is a bunch of notes and observations on the code of my game.
