@@ -1,8 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://b83ss7rsln8uk"]
+[gd_scene load_steps=16 format=3 uid="uid://b83ss7rsln8uk"]
 
 [ext_resource type="Script" path="res://fourth_scene.gd" id="1_oy3yn"]
 [ext_resource type="Texture2D" uid="uid://dehcg1bxe1p6f" path="res://mountain-lake-featured_1024x.jpg" id="2_7bktm"]
 [ext_resource type="Texture2D" uid="uid://b1skn63r514v2" path="res://face-of-frog-kelly-lucero.jpg" id="3_2op1t"]
+[ext_resource type="Texture2D" uid="uid://gc4o1jsyke55" path="res://assets/istockphoto-172168250-1024x10242.jpg" id="4_1p60a"]
 
 [sub_resource type="Theme" id="Theme_t3sm4"]
 
@@ -15,7 +16,19 @@ func _ready()->void:
 
 func _on_resource_updated(resource_type: String, new_amount: float) -> void:
 	if resource_type == \"nutrients\":
-		text = \"Nutrients: \" + str(snapped(new_amount, 0))
+		text = \"nutrients: \" + str(snapped(new_amount, 0))
+"
+
+[sub_resource type="GDScript" id="GDScript_k8mug"]
+script/source = "extends Label
+
+func _ready()->void:
+	ResourceManager.ref.connect(\"resource_updated\", Callable(self, \"_on_resource_updated\"))
+	
+
+func _on_resource_updated(resource_type: String, new_amount: float) -> void:
+	if resource_type == \"bugs\":
+		text = \"bugs caught: \" + str(snapped(new_amount, 0))
 "
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_773j7"]
@@ -32,6 +45,18 @@ func _on_resource_updated(resource_type: String, new_amount: float) -> void:
 	if resource_type == \"water\":
 		text = str(new_amount)
 "
+
+[sub_resource type="Theme" id="Theme_3l4ap"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_blvqf"]
+bg_color = Color(0.964692, 0.908452, 0.864276, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jjauq"]
+bg_color = Color(0.902879, 0.961922, 0.996533, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_lolo0"]
+font_size = 33
+font_color = Color(0.783609, 0.25043, 0.235143, 1)
 
 [sub_resource type="GDScript" id="GDScript_efyds"]
 script/source = "#class_name BugCollectorButtondddd
@@ -184,7 +209,7 @@ scale = Vector2(0.397778, 0.370287)
 texture = ExtResource("3_2op1t")
 
 [node name="Control" type="ColorRect" parent="MarginContainer/HBoxContainer"]
-custom_minimum_size = Vector2(10, 0)
+custom_minimum_size = Vector2(4, 0)
 layout_mode = 2
 theme = SubResource("Theme_t3sm4")
 color = Color(0, 0, 0, 1)
@@ -215,52 +240,66 @@ grow_horizontal = 2
 grow_vertical = 0
 color = Color(0.0412396, 0.173731, 0.209383, 1)
 
-[node name="EatBugButton" type="Button" parent="MarginContainer/HBoxContainer/MiddlePanel"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(200, 200)
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -60.0
-offset_top = -60.0
-offset_right = 60.0
-offset_bottom = 60.0
-grow_horizontal = 2
-grow_vertical = 2
-text = "Eat"
-
-[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/MiddlePanel"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer/MiddlePanel"]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -135.0
-offset_right = 135.0
-offset_bottom = 39.0
+offset_left = -97.5
+offset_right = 97.5
+offset_bottom = 82.0
 grow_horizontal = 2
+
+[node name="NutrientsLabel" type="Label" parent="MarginContainer/HBoxContainer/MiddlePanel/VBoxContainer"]
+layout_mode = 2
 theme_type_variation = &"HeaderLarge"
 text = "nutrients: 0"
 horizontal_alignment = 1
 script = SubResource("GDScript_xbqbv")
 
-[node name="CollectWaterButton" type="Button" parent="MarginContainer/HBoxContainer/MiddlePanel"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(100, 200)
+[node name="BugsLabel" type="Label" parent="MarginContainer/HBoxContainer/MiddlePanel/VBoxContainer"]
+layout_mode = 2
+theme_type_variation = &"HeaderLarge"
+text = "bugs caught: 0"
+horizontal_alignment = 1
+script = SubResource("GDScript_k8mug")
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/HBoxContainer/MiddlePanel"]
 layout_mode = 1
 anchors_preset = 6
 anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_left = -8.0
-offset_top = -4.0
-offset_bottom = 4.0
+offset_left = -304.0
+offset_top = -100.0
+offset_bottom = 100.0
 grow_horizontal = 0
 grow_vertical = 2
+
+[node name="EatBugButton" type="Button" parent="MarginContainer/HBoxContainer/MiddlePanel/HBoxContainer2"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "Catch Bug"
+
+[node name="CollectWaterButton" type="Button" parent="MarginContainer/HBoxContainer/MiddlePanel/HBoxContainer2"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 200)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
 text = "Well"
+
+[node name="ConvertNutrientsButton" type="Button" parent="MarginContainer/HBoxContainer/MiddlePanel/HBoxContainer2"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "Convert
+Into 
+Nutrients"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer/MiddlePanel"]
 custom_minimum_size = Vector2(450, 50)
@@ -294,7 +333,7 @@ horizontal_alignment = 1
 script = SubResource("GDScript_rxn4j")
 
 [node name="Control2" type="ColorRect" parent="MarginContainer/HBoxContainer"]
-custom_minimum_size = Vector2(10, 0)
+custom_minimum_size = Vector2(4, 0)
 layout_mode = 2
 theme = SubResource("Theme_t3sm4")
 color = Color(0, 0, 0, 1)
@@ -303,25 +342,47 @@ color = Color(0, 0, 0, 1)
 custom_minimum_size = Vector2(533, 0)
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer/RightPanel"]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/HBoxContainer/RightPanel"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
+theme = SubResource("Theme_3l4ap")
 
-[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/RightPanel/VBoxContainer"]
+[node name="TabContainer" type="TabContainer" parent="MarginContainer/HBoxContainer/RightPanel/MarginContainer"]
+custom_minimum_size = Vector2(0, 35)
+layout_mode = 2
+mouse_filter = 2
+theme_override_styles/tab_selected = SubResource("StyleBoxFlat_blvqf")
+theme_override_styles/tab_unselected = SubResource("StyleBoxFlat_jjauq")
+current_tab = 0
+tabs_position = 1
+
+[node name="Istockphoto-172168250-1024x10242" type="Sprite2D" parent="MarginContainer/HBoxContainer/RightPanel/MarginContainer/TabContainer"]
+position = Vector2(270.5, 418.5)
+scale = Vector2(1.26812, 1.63158)
+texture = ExtResource("4_1p60a")
+
+[node name="MainTab" type="VBoxContainer" parent="MarginContainer/HBoxContainer/RightPanel/MarginContainer/TabContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/RightPanel/MarginContainer/TabContainer/MainTab"]
 layout_mode = 2
 theme_type_variation = &"HeaderLarge"
 text = "unlockables"
+label_settings = SubResource("LabelSettings_lolo0")
 horizontal_alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer/RightPanel/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer/RightPanel/MarginContainer/TabContainer/MainTab"]
 layout_mode = 2
 size_flags_horizontal = 4
 
-[node name="BugCollectorUnlockOneButton" type="Button" parent="MarginContainer/HBoxContainer/RightPanel/VBoxContainer/HBoxContainer"]
+[node name="BugCollectorUnlockOneButton" type="Button" parent="MarginContainer/HBoxContainer/RightPanel/MarginContainer/TabContainer/MainTab/HBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(150, 100)
 layout_mode = 2
@@ -330,12 +391,49 @@ Bug Collector Mk.2
 Cost: <Value>"
 script = SubResource("GDScript_efyds")
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/HBoxContainer/RightPanel/VBoxContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/HBoxContainer/RightPanel/MarginContainer/TabContainer/MainTab"]
 layout_mode = 2
 size_flags_horizontal = 4
 
-[node name="UpgradeBugCollectorButton" type="Button" parent="MarginContainer/HBoxContainer/RightPanel/VBoxContainer/HBoxContainer2"]
+[node name="UpgradeBugCollectorButton" type="Button" parent="MarginContainer/HBoxContainer/RightPanel/MarginContainer/TabContainer/MainTab/HBoxContainer2"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(150, 100)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Upgrade
+Bug Collector
+Cost: <Value>"
+script = SubResource("GDScript_out3a")
+
+[node name="SecondTab" type="VBoxContainer" parent="MarginContainer/HBoxContainer/RightPanel/MarginContainer/TabContainer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+metadata/_tab_index = 1
+
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/RightPanel/MarginContainer/TabContainer/SecondTab"]
+layout_mode = 2
+theme_type_variation = &"HeaderLarge"
+text = "unlockables2"
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer/RightPanel/MarginContainer/TabContainer/SecondTab"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="BugCollectorUnlockOneButton" type="Button" parent="MarginContainer/HBoxContainer/RightPanel/MarginContainer/TabContainer/SecondTab/HBoxContainer"]
+custom_minimum_size = Vector2(150, 100)
+layout_mode = 2
+text = "Unlock
+Bug Collector Mk.2
+Cost: <Value>"
+script = SubResource("GDScript_efyds")
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/HBoxContainer/RightPanel/MarginContainer/TabContainer/SecondTab"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="UpgradeBugCollectorButton" type="Button" parent="MarginContainer/HBoxContainer/RightPanel/MarginContainer/TabContainer/SecondTab/HBoxContainer2"]
 custom_minimum_size = Vector2(150, 100)
 layout_mode = 2
 size_flags_horizontal = 4

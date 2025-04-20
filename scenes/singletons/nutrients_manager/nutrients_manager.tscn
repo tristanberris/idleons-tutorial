@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cqmytkfvn1llo"]
+
+[ext_resource type="Script" path="res://scenes/singletons/nutrients_manager/nutrients_manager.gd" id="1_088ts"]
+
+[node name="NutrientsManager" type="Node"]
+script = ExtResource("1_088ts")

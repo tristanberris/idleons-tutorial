@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://dlavhneqf3y7v"]
+[gd_scene load_steps=14 format=3 uid="uid://dlavhneqf3y7v"]
 
 [ext_resource type="Script" path="res://scenes/singletons/game/game.gd" id="1_ge8ti"]
 [ext_resource type="PackedScene" uid="uid://ckl2yivtudf2a" path="res://scenes/singletons/clock/clock.tscn" id="2_8v8eg"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://bpyisi62gltaw" path="res://scenes/singletons/upgrade_manager/upgrade_manager.tscn" id="6_k3pqb"]
 [ext_resource type="PackedScene" uid="uid://j5xbgo3kvif0" path="res://scripts/Managers/generator_manager/generator_manager.tscn" id="7_ghg6h"]
 [ext_resource type="Script" path="res://scripts/Managers/generator_manager/generator_manager.gd" id="8_mcoq1"]
+[ext_resource type="PackedScene" uid="uid://cqmytkfvn1llo" path="res://scenes/singletons/nutrients_manager/nutrients_manager.tscn" id="9_5twar"]
 [ext_resource type="PackedScene" uid="uid://b8xbx3modfn" path="res://scenes/singletons/resource_manager/resource_manager.tscn" id="9_qtqeq"]
 [ext_resource type="Script" path="res://scenes/singletons/resource_manager/resource_manager.gd" id="10_skl87"]
 [ext_resource type="PackedScene" uid="uid://b83ss7rsln8uk" path="res://scenes/fourth_scene/fourth_scene.tscn" id="11_q2kke"]
@@ -29,6 +30,8 @@ script = ExtResource("10_skl87")
 
 [node name="GeneratorManager" parent="Resources" instance=ExtResource("7_ghg6h")]
 script = ExtResource("8_mcoq1")
+
+[node name="NutrientsManager" parent="Resources" instance=ExtResource("9_5twar")]
 
 [node name="Clock" parent="." instance=ExtResource("2_8v8eg")]
 

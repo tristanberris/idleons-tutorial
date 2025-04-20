@@ -1,3 +1,22 @@
+Story:
+This is the story of Frog the Scientist. His mission is to:
+	
+	Frog the Scientist goes outside to perform his usual stargazing, but he notices that
+		all the stars have disappeared! Even the moon is gone. The night sky is black.
+		He lights his trusty floating lantern robot, and begins to conduct research on 
+		why this has happened. 
+		His new ultimate goal is to build a ship and investigate from space.
+	The research requires the study of biological material or "nutrients".
+	He begins harvesting nutrients by catching bugs in the air. He first uses his
+		tongue to catch the bugs, but soon invents a method to catch bugs automatically.
+		He invents a "Bug lamp/baloon", a floating lamp that collects bugs using its 
+		ambient light. I am thinking it floats around gently like a fire lamp(??).
+		These will begin to look like stars, once the player has purchased enough of them
+	
+	My clever idea for this alternate path is that once the frog has completed his research,
+		he will have essentially returned the night sky to it's former beauty, due to his
+		inventions.
+---
 TODO:
 	[ ]: Primary Generator Upgrade
 		[x]: Create Button that upgrades primary generator
@@ -5,17 +24,23 @@ TODO:
 		[ ]:
 	[x]: Allow user to hold click to gather primary resource
 	[ ]: Allow user to hold click to gather secondary resource
+	[ ]: Make well and water an unlockable
 	[ ]:
-	[ ]:
-	[ ]:
-	[ ]: 
-
+	[ ]: Change name references
+		[ ]: Change generator references to "Bug Lantern"
+		[ ]: 
+	[ ]: Allow player to use caught bugs to turn into nutrients
+		[ ]:Change 'click' back into catching bugs. 
+			[ ]: Do not increment nutrients from catching bugs, only increment bugs caught
+		[ ]: Create way for player to convert bugs into nutrients
+		[ ]: Create bug resource
+---
+Code notes:
 This is a bunch of notes and observations on the code of my game.
 A Production Rate variable in my GeneratorManager is what dictates the amount of resources.
 
 Generator seems to be a good base for other self-contained systems. 
-
-
+---
 Possible resources to add for complexity:
 	Water:
 		Used for keeping health(?) high. 
@@ -23,7 +48,7 @@ Possible resources to add for complexity:
 	Well: Used to extract water. Requieres clicks. 	
 	Progress Bar on bottom that fills up after enough clicks
 		Clicks on well fill water bucket. Requires > 1 click to fill bucket. 
-	
+---	
 Resource philosophy:
 	Each resource should be "self contained", in the sense that each resource 
 		has a primary function. For example, 'spirits' in Magic Tower only allow
@@ -34,19 +59,58 @@ Resource philosophy:
 		new resources and a new way to speed up primary resource production.
 	Present a way to automate every currency. We'll use Generators as example.
 		Present a way to increase speed of generators, using primary resource.  
-		This is on top of buying more generators. 
+		This is on top of buying more generators.
+--- 
+Progression:
+	Initial state: Player can only catch bugs and convert into nutrients. 
+	First major upgrade: First major unlock should be 'Research Building'
+		Research building allows for player to unlock various technologies:
+			1. Bug Lantern
+			2. ???
+	WHEN A BUILDING IS UNLOCKED, A NEW TAB WILL APPEAR ON THE RIGHT QUADRENT. 
+		THINK A BOOKMARK
+	Second major upgrade: Second major unlock should be 
+	
+	
+---
 Resources & Generators:
 	Resources:
 		Primary Resource:
-			Primary resource will be Nutrients. 
+			Nutrients: Nutrients is the primary resource of the game.
+				BUGS AND NUTRIENTS ARE DIFFERENT
 			
 		Secondary Resources:
-			
+			Bugs: Bugs is one of the things the player can turn into Nutrients.
+				When a player catches bugs, they'll have an option to 'Convert into Nutrients'.
+				This can be thought of like "cashing out". 
 			
 	Generators:
 		Primary Generator:	
-			Primary generator will be BUG CATCHER, which will be a drone with a light.
-				It should look like a firefly or something. 
+			Primary generator will be Bug Lantern, which will be a floating lantern with a light.
+				It should look like chinese lantern in the night sky
 				
 		Secondary Generators:
 			
+	Upgrades:
+		Primary Resource Upgrades:
+			Increase Brightness: This upgrade will increase the effectiveness of the lantern
+									Specifically, the speed at which it catches bugs.
+		
+		Secondary Resources:
+---
+Buildings:
+	Research Building: A building where Frog can research and invent new technologies
+		Maybe new skills that would go on a sort of 'taskbar'?
+	Observatory: A building where Frog can unlock passive upgrades.
+		The player will get upgrades by observing constellations
+
+Costs:
+	Building costs:
+		Research Building: 25 Nutrients
+		
+		Obsertvatory: 2000 nutrients
+
+UI:
+	The right-hand side is the players vertical notebook. think of a small spiral
+		bound notebook. that sort of thing. tabs should be on the bottom, like bookmarks
+	

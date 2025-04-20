@@ -1,0 +1,104 @@
+[gd_scene load_steps=2 format=3 uid="uid://dj1htaqi6g43r"]
+
+[ext_resource type="Script" path="res://scenes/singletons/tab_switcher/tab_switcher.gd" id="1_lhxuy"]
+
+[node name="TabSwitcher" type="Control"]
+custom_minimum_size = Vector2(573, 900)
+layout_mode = 3
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -533.0
+offset_top = -450.0
+offset_bottom = 450.0
+grow_horizontal = 0
+grow_vertical = 2
+script = ExtResource("1_lhxuy")
+
+[node name="TabButtons" type="VBoxContainer" parent="."]
+layout_mode = 1
+offset_right = 80.0
+offset_bottom = 143.0
+
+[node name="Button" type="Button" parent="TabButtons"]
+custom_minimum_size = Vector2(40, 100)
+layout_mode = 2
+size_flags_horizontal = 0
+text = "🚀"
+autowrap_mode = 3
+
+[node name="Button2" type="Button" parent="TabButtons"]
+custom_minimum_size = Vector2(40, 100)
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="Button3" type="Button" parent="TabButtons"]
+custom_minimum_size = Vector2(40, 100)
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="Pages" type="Panel" parent="."]
+visible = false
+custom_minimum_size = Vector2(533, 900)
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -400.0
+offset_top = -450.0
+offset_bottom = 450.0
+grow_horizontal = 0
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Tab1" type="Control" parent="Pages"]
+custom_minimum_size = Vector2(533, 0)
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Pages/Tab1"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "This is scene 1"
+
+[node name="Tab2" type="Control" parent="Pages"]
+custom_minimum_size = Vector2(533, 0)
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Pages/Tab2"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "This is scene 2"
+
+[node name="Tab3" type="Control" parent="Pages"]
+custom_minimum_size = Vector2(533, 0)
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Pages/Tab3"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "This is scene 3"

@@ -1,0 +1,16 @@
+[gd_resource type="Resource" load_steps=5 format=3 uid="uid://wgucgctfqajr"]
+
+[ext_resource type="Script" path="res://addons/tabby_explorer/editor/dock_pref.gd" id="1_rfcvg"]
+[ext_resource type="Script" path="res://addons/tabby_explorer/editor/main_pref.gd" id="2_3356q"]
+[ext_resource type="Script" path="res://addons/tabby_explorer/editor/dock_tab_pref.gd" id="2_enxnt"]
+
+[sub_resource type="Resource" id="Resource_i7cwa"]
+script = ExtResource("1_rfcvg")
+name = "Tabby Explorer"
+selected_tab = 0
+tabs = Array[ExtResource("2_enxnt")]([])
+dock_pos = 5
+
+[resource]
+script = ExtResource("2_3356q")
+docks = Array[ExtResource("1_rfcvg")]([SubResource("Resource_i7cwa")])
